@@ -1,6 +1,7 @@
 ﻿#include <iostream>
 #include <fstream>
 #include <vector>
+#include <Windows.h>
 
 using namespace std;
 
@@ -12,13 +13,25 @@ struct catalog {
 	int year;
 	float price;
 	int capacity;
+	void Print() {
+		cout << mark << "\t\t";
+		cout << "        " << model << "\t";
+		cout << "        " << helicopter_class << "\t";
+		cout << "        " << country << "\t";
+		cout << "        " << year << "\t";
+		cout << "        " << price << "\t";
+		cout << "        " << capacity << "\t";
+		cout << endl;
+	}
 };
 
 catalog hc;
 int start, n = 0;
 
 int main() {
-	setlocale(LC_ALL, "RUS");
+	setlocale(LC_ALL, "Russian");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	ofstream file;
 	cout << "Ввод новой записи - 1" << endl;
 	cout << "Вывод всех записей - 2" << endl;
@@ -30,8 +43,9 @@ int main() {
 		switch (start)
 		{
 		case 1:
-		{file.open("file.bin", ios_base::app);
-		if (!file) {
+		{FILE* fa;
+		fa = fopen("file.txt", "w+");
+		if (!fa) {
 			cout << "Файл не открыт!\n";
 		}
 		else {
@@ -42,46 +56,39 @@ int main() {
 			cout << "Год выпуска: "; cin >> hc.year;
 			cout << "Цена: "; cin >> hc.price;
 			cout << "Вместимость: "; cin >> hc.capacity;
-			vector <catalog> vhc;
-			file.write((char*)&vhc, sizeof(catalog));
-			file.close();
-			ifstream file("file.bin", ios::in);
-			file.read((char*)&n, sizeof(int));
+			fread(&n, sizeof(int), 1, fa);
+			cout << "n = " << n;
 			n++;
-			file.close();
-			ofstream file("file.bin", ios_base::app);
-			file.write((char*)&n, sizeof(int));
-			file.close();
-			//file.write((char*)&hc, sizeof(catalog));
-			
+			fwrite(&n, sizeof(int), 1, fa);
+			fclose(fa);
+			FILE* fb;
+			fb = fopen("file.txt", "a");
+			fwrite((char*)&hc, sizeof(catalog), 1, fb);
+			fclose(fb);
+			cout << n;
 		}
 		break;
 		}
 		case 2: {
-			ifstream file("file.bin", ios::in);
-			if (!file) {
+			FILE* f;
+			f = fopen("file.txt", "r");
+			if (!f) {
 				cout << "Файл не открыт!\n";
 			}
 			else
 			{
-				catalog hc;
-				vector <catalog> vhc;
-				while (!file.eof()) {
-					file.read((char*)&hc, sizeof(catalog));
-					/*cout << "Марка: " << hc.mark << endl;
-					cout << "Модель: " << hc.model << endl;
-					cout << "Класс: " << hc.helicopter_class << endl;
-					cout << "Страна: " << hc.country << endl;
-					cout << "Год выпуска: " << hc.year << endl;
-					cout << "Цена: " << hc.price << endl;
-					cout << "Вместимость: " << hc.capacity << endl;*/
-					vhc.push_back(hc);
-					for (int i = 0; i <= vhc.size(); ++i) {
-						cout << vhc[0] << endl;
-					}
+				fread(&n, sizeof(int), 1, f);
+				cout << n;
+				catalog* p;
+				p = (catalog*)calloc(n, sizeof(catalog));
+				for (int i = 0; i < n; i++) {
+					fread(&p[i], sizeof(catalog), 1, f);
 				}
-				file.close();
+				for (int i = 0; i < n; i++) {
+					p[i].Print();
+				}
 			}
+			fclose(f);
 			break;
 		}
 		case 3:
