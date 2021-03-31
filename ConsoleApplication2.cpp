@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef struct catalog //структура процессоров
+typedef struct catalog 
 {
     char mark[30];
     char model[30];
@@ -86,7 +86,7 @@ int main()
 
             switch (filter_option) // выбор фильтра поиска
             {
-            case 1: // Поиск по названию процессора
+            case 1: // Поиск по марке
                 getchar();
                 cout << "Введите марку вертолета: "; cin.getline(nameX, 40);
                 file->open(doc, ios_base::in | ios_base::binary);
@@ -112,7 +112,7 @@ int main()
                     file->close();
                     break;
                 }
-            case 2: // Поиск по модели процессора
+            case 2: // Поиск по модели
                 getchar();
                 cout << "Введите модель: "; cin.getline(nameX, 40);
                 file->open(doc, ios_base::in | ios_base::binary);
@@ -138,7 +138,7 @@ int main()
                     file->close();
                     break;
                 }
-            case 3: // Поиск по сокету
+            case 3: 
                 getchar();
                 cout << "Введите класс: "; cin.getline(nameX, 40);
                 file->open(doc, ios_base::in | ios_base::binary);
@@ -164,7 +164,7 @@ int main()
                     file->close();
                     break;
                 }
-            case 4: // Поиск по частоте(ГГц)
+            case 4: 
                 getchar();
                 int oper; // выбор подфильтра
                 file->open(doc, ios_base::in | ios_base::binary);
@@ -239,7 +239,7 @@ int main()
                     }
                 }
                 break;
-            case 5: // Поиск по техпроцессу(нм)
+            case 5:
                 getchar();
                 file->open(doc, ios_base::in | ios_base::binary);
                 if (!file->is_open())
@@ -313,7 +313,7 @@ int main()
                     }
                 }
                 break;
-            case 6: // Поиск по количеству ядер
+            case 6: 
                 getchar();
                 cout << "Введите страну: "; cin.getline(nameX, 40);
                 file->open(doc, ios_base::in | ios_base::binary);
@@ -344,7 +344,7 @@ int main()
                 break;
             }
             break;
-        case 4: // выход из программы
+        case 4: 
             f = false;
             break;
         default:
