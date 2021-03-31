@@ -26,7 +26,7 @@ int main() {
 
 	int start, i;
 	bool find = false;
-	char nameX[40]; // переменная для поиска по строке
+	char nameX[40]; 
 	int choise, numberi;
 	double numberd;
 
@@ -91,7 +91,7 @@ int main() {
 		}
 		case 3:
 			fstream file;
-			int filter_option; // выбор фильтра
+			int filter_option;
 			cout << "Фильтры:\n"
 				<< "\t1 - Поиск по марке\n"
 				<< "\t2 - Поиск по модели\n"
@@ -227,7 +227,7 @@ int main() {
 				}
 			case 5:
 				getchar();
-				int oper; // выбор подфильтра
+				int oper; 
 				find = false;
 				file.open("file.txt", ios_base::in | ios_base::binary);
 				if (!file.is_open())
@@ -317,7 +317,7 @@ int main() {
 				if (!file.is_open())
 					cout << "Файл не может быть открыт!\n";
 				else {
-					cout << "Выберите операцию: \n1) =\n2) >=\n3) <=\n"; cin >> oper; // выбор подфильтра
+					cout << "Выберите операцию: \n1) =\n2) >=\n3) <=\n"; cin >> oper; 
 					switch (oper) // поиск по подфильтру
 					{
 					case 1: // если введенное значние == заданному
@@ -343,7 +343,7 @@ int main() {
 							cout << "Записей не найдено.\n";
 						file.close();
 						break;
-					case 2: // если значние >= заданного
+					case 2: 
 						cout << "Введите цену: "; cin >> numberd;
 						cout << "Марка\t\tМодель\t\tКласс\t\tСтрана\t\tГод выпуска\t\tЦена\n";
 						while (true)
@@ -366,7 +366,7 @@ int main() {
 							cout << "Записей не найдено.\n";
 						file.close();
 						break;
-					case 3: // если значние <= заданного
+					case 3: 
 						cout << "Введите цену: "; cin >> numberd;
 						cout << "Марка\t\tМодель\t\tКласс\t\tСтрана\t\tГод выпуска\t\tЦена\n";
 						while (true)
